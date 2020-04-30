@@ -15,15 +15,13 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
-    this.http
-      .post(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
-        postData
-      )
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
-  }
+    this.http.post('https://udemyangular-97ffb.firebaseio.com/posts.json',
+     postData
+     )
+     .subscribe(responseData => {
+      console.log(responseData)
+     });
+  } 
 
   onFetchPosts() {
     // Send Http request
