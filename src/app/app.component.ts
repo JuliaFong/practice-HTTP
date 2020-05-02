@@ -20,7 +20,9 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: Post) {
     // Send Http request
-    this.http.post('https://udemyangular-97ffb.firebaseio.com/posts.json',
+    this.http
+    .post<{ name: string }>
+    ('https://udemyangular-97ffb.firebaseio.com/posts.json',
      postData
      )
      .subscribe(responseData => {
@@ -39,10 +41,10 @@ export class AppComponent implements OnInit {
 
   private fetchPosts() {
     this.http
-    .get('https://udemyangular-97ffb.firebaseio.com/posts.json')
+    .get<{ [key: string]: Post}>('https://udemyangular-97ffb.firebaseio.com/posts.json')
     .pipe(
-      map((responseData: { [key: string]: Post }) => {
-      const postsArray = []
+      map(responseData => {
+      const postsArray: Post[] = []
       for (const key in responseData) {
         if(responseData.hasOwnProperty(key)){
           postsArray.push({ ...responseData[key], id: key })
