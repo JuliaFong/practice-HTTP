@@ -21,7 +21,7 @@ export class PostsService {
          });
     }
     fetchPosts() {
-        this.http
+    return this.http
     .get<{ [key: string]: Post}>('https://udemyangular-97ffb.firebaseio.com/posts.json')
     .pipe(
       map(responseData => {
@@ -34,8 +34,6 @@ export class PostsService {
       return postsArray;
     })
   )
-    .subscribe(posts => {
-      
-    })  
+ 
   }
 }
