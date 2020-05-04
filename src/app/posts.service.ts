@@ -36,4 +36,8 @@ export class PostsService {
   )
  
   }
+
+  deletePost() {
+    return this.http.delete('https://udemyangular-97ffb.firebaseio.com/posts.json')
+  }
 }
