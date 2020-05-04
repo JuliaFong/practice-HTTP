@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { map, catchError} from 'rxjs/operators';
+import { Subscription, throwError } from 'rxjs';
 
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
@@ -44,9 +44,15 @@ export class AppComponent implements OnInit, OnDestroy {
     .subscribe(posts => {
       this.isFetching = false;
       this.loadedPosts = posts
-    }, error => {
+    }, 
+    error => {
+      this.isFetching = false;
       this.error = error.message;
       console.log(error)
+    }),
+    catchError(errorRes => {
+      //send to analytivs server
+      return throwError(errorRes)
     })
   }
 
@@ -56,6 +62,10 @@ export class AppComponent implements OnInit, OnDestroy {
     .subscribe(() => {
       this.loadedPosts = [];
     })
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 
   ngOnDestroy() {
