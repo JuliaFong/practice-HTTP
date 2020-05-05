@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     catchError(errorRes => {
       //send to analytivs server
       return throwError(errorRes)
-    })
+    } );
   }
 
   onClearPosts() {
