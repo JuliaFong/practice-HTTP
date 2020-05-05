@@ -36,7 +36,8 @@ export class PostsService {
     .get<{ [key: string]: Post}>('https://udemyangular-97ffb.firebaseio.com/posts.json',
     {
       headers: new HttpHeaders({'Custom-Header': 'Hiii'}),
-      params: searchParams
+      params: searchParams,
+      responseType: 'json'
     }
   )
     .pipe(
@@ -57,7 +58,8 @@ export class PostsService {
     return this.http.delete(
       'https://udemyangular-97ffb.firebaseio.com/posts.json',
       {
-        observe: 'events'
+        observe: 'events',
+        responseType: 'text'
       })
       .pipe(
         tap(event => {
